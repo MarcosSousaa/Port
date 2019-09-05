@@ -107,11 +107,7 @@ class RecordsController extends Controller {
                     }
                     
                 }
-                
-                
-               
-                
-                
+
                 header("Location:". BASE_URL.'/records');
                 exit();   
             }
@@ -170,6 +166,5 @@ class RecordsController extends Controller {
             header("Location: " . BASE_URL);
         }
     }
-
 
 }

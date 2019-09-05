@@ -19,7 +19,7 @@ class Records extends Model{
 		$stmt->bindValue(':tipo',$tipo);
 		$stmt->bindValue(':data1',$data1);
 		$stmt->bindValue(':data2',$data2);
-		$stmt->execute();		
+		$stmt->execute();	
 		if($stmt->rowCount() > 0){
 			$array =  $stmt->fetchAll();
 		}
@@ -36,7 +36,6 @@ class Records extends Model{
 		if($stmt->rowCount() > 0){
 			$array = $stmt->fetch();
 		}
-
 		return $array;
 	}	
 
@@ -48,7 +47,6 @@ class Records extends Model{
         $row = $stmt->fetch();
         return $row['c'];
 	}
-
 
 	public function add($tipo,$data_er,$hora_er,$colab_ret = '', $tipo_vr = '', $placa_vr = '', $motorista_vr = '', $empresa_vr = '' , $veiculos_id = '',$chaves_id = '',$obs = '',$visitante = ''){
 		if($tipo == '0'){
