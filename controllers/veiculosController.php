@@ -1,5 +1,5 @@
 <?php
-class veiculosController extends Controller {
+class VeiculosController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -13,7 +13,7 @@ class veiculosController extends Controller {
     public function index() {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
-             
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('veiculos_view')) { 
         	$v = new Veiculos();
         	$offset = 0; 
@@ -42,7 +42,7 @@ class veiculosController extends Controller {
     public function add() {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
-             
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('veiculos_add')) { 
         	$v = new Veiculos();
         	if(isset($_POST['motorista']) && !empty($_POST['motorista'])){
@@ -65,7 +65,7 @@ class veiculosController extends Controller {
     public function edit($id) {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
-             
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('veiculos_edit')) { 
         	$v = new Veiculos();
         	if(isset($_POST['motorista']) && !empty($_POST['motorista'])){        		
@@ -87,7 +87,8 @@ class veiculosController extends Controller {
     public function inat($id){
         $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());     
         if ($this->user->hasPermission('veiculos_del')) {
             $v = new Veiculos();
             $v->inat($id);

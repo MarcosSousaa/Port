@@ -1,5 +1,5 @@
 <?php
-class chavesController extends Controller {
+class ChavesController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -10,9 +10,10 @@ class chavesController extends Controller {
         }
         $this->user->setLoggedUser();
     }
-    public function index() {
+    public function index() {        
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
              
         if ($this->user->hasPermission('chaves_view')) { 
         	$c = new Chaves();
@@ -43,6 +44,7 @@ class chavesController extends Controller {
     public function add() {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
              
         if ($this->user->hasPermission('chaves_add')) { 
         	$c = new Chaves();
@@ -63,6 +65,7 @@ class chavesController extends Controller {
     public function edit($id) {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
              
         if ($this->user->hasPermission('chaves_edit')) { 
         	$c = new Chaves();
@@ -86,6 +89,7 @@ class chavesController extends Controller {
     public function inative($id) {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
              
         if ($this->user->hasPermission('chaves_edit')) { 
             $c = new Chaves();            

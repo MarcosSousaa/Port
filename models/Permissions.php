@@ -107,4 +107,15 @@ class Permissions extends Model {
             $stmt->execute();
         }
     }
+
+    public function grupoPorUsuario($cpf){
+        $sql = "SELECT groups.name FROM users INNER JOIN groups ON users.id_group = groups.id WHERE users.cpf = :cpf";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":cpf", $cpf);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetch();
+        }
+        return false;
+    }
 }

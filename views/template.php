@@ -19,26 +19,100 @@
             </div>
             <div class="menuarea">
                 <ul>
-                    <li class=""><a href="<?= BASE_URL ?>">Home</a></li>
-                    <li><a href="<?= BASE_URL ?>/permissions">Permissões</a></li>
-                    <li><a href="<?= BASE_URL ?>/users">Usuários</a></li>
-                    <li><a href="<?= BASE_URL ?>/records">Entrada-Saída</a></li>
-                    <li><a href="<?= BASE_URL ?>/veiculos">Veículos</a></li>
-                    <li><a href="<?= BASE_URL ?>/chaves">Chaves</a></li>                    
-                    <li><a href="<?= BASE_URL ?>/report">Relatórios</a></li>
+                    <?php 
+                    if(isset($viewData['acesso']['name'])){ 
+                        switch($viewData['acesso']['name']){
+                            case 'PORTARIA':
+                                echo '
+                                    <li class="menuHome">
+                                        <a href="'.BASE_URL.'">Home</a>
+                                    </li>
+                                    <li class="menuRecords">
+                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                    </li>
+                                    <li class="menuVeiculos">
+                                        <a href="'.BASE_URL.'/veiculos">Veículos</a>
+                                    </li>
+                                    <li class="menuReports">
+                                        <a href="'.BASE_URL.'/reports">Relatórios</a>
+                                    </li>';
+                            break;
+                            case 'COMPRAS':
+                                echo '
+                                    <li class="menuHome">
+                                        <a href="'.BASE_URL.'">Home</a>
+                                    </li>
+                                    <li class="menuRecords">
+                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                    </li>
+                                    <li class="menuReports">
+                                        <a href="'.BASE_URL.'/reports">Relatórios</a>
+                                    </li>'; 
+                            break;
+                            case 'DESENVOLVEDOR':
+                                echo '
+                                    <li class="menuHome">
+                                        <a href="'.BASE_URL.'">Home</a>
+                                    </li>
+                                    <li class="menuPermission">
+                                        <a href="'.BASE_URL.'/permissions">Permissões</a>
+                                    </li>
+                                    <li class="menuUsers">
+                                        <a href="'.BASE_URL.'/users">Usuários</a>
+                                    </li>
+                                    <li class="menuRecords">
+                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                    </li>
+                                    <li class="menuVeiculos">
+                                        <a href="'.BASE_URL.'/veiculos">Veículos</a>
+                                    </li>
+                                    <li class="menuChaves">
+                                        <a href="'. BASE_URL .'/chaves">Chaves</a>
+                                    </li>
+                                    <li class="menuReports">
+                                        <a href="'.BASE_URL.'/reports">Relatórios</a>
+                                    </li>
+                                ';
+                            break;
+                            default :
+                                echo '
+                                    <li class="menuHome">
+                                        <a href="'. BASE_URL .'">Home</a>
+                                    </li>
+                                    <li class="menuPermission">
+                                        <a href="'.BASE_URL.'/permissions">Permissões</a>
+                                    </li>
+                                    <li class="menuUsers">
+                                        <a href="'.BASE_URL.'/users">Usuários</a>
+                                    </li>
+                                    <li class="menuRecords">
+                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                    </li>
+                                    <li class="menuVeiculos">
+                                        <a href="'.BASE_URL.'/veiculos">Veículos</a>
+                                    </li>
+                                    <li class="menuChaves">
+                                        <a href="'.BASE_URL.'/chaves">Chaves</a>
+                                    </li>
+                                    <li class="menuReports">
+                                        <a href="'.BASE_URL.'/reports">Relatórios</a>
+                                    </li>
+                                ';
+
+                        }
+                    }
+                    ?>
+                    
                 </ul>
             </div>
         </div>
-
-
         <div class="container">
             <div class="top">
-                <div class="top_right"><a href="<?= BASE_URL ?>/login/logout">Sair</a></div>
-                <div class="top_right"><?= $viewData['nome_usuario'] ?></div>
+                <div class="top_right"><a href="<?= BASE_URL ?>/login/logout" style="background: #000; padding: 13px;">Sair</a></div>
+                <div class="top_right"><strong><?= $viewData['nome_usuario']. ' - '.$viewData['acesso']['name'] ?></strong></div>
             </div>
 
             <div class="area">
-                
                 <?php $this->loadViewInTemplate($viewName, $viewData) ?>
             </div>
         </div>

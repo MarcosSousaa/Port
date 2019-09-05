@@ -1,13 +1,14 @@
 <?php
 
-class loginController extends Controller {
+class LoginController extends Controller {
 
 	public function index(){
 		$data = array();
 
 		if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
 			$cpf = addslashes(filter_input(INPUT_POST, 'cpf'));
-
+			$cpf = str_replace(".", "", $cpf);
+			$cpf = str_replace("-", "", $cpf);
 			$u = new Users();
 
 			if($u->doLogin($cpf)){

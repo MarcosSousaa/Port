@@ -1,5 +1,5 @@
 <?php
-class usersController extends Controller {
+class UsersController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -13,7 +13,7 @@ class usersController extends Controller {
     public function index() {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
-             
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('usuario_view')) {            
             $data['users_list'] = $this->user->getList();
             $this->loadTemplate('users', $data);
@@ -23,13 +23,15 @@ class usersController extends Controller {
     }
     public function add() {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());    
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $data['group_list'] = $p->getGroupList();
             if (isset($_POST['cpf']) && !empty($_POST['cpf'])) {                
                 $cpf = addslashes($_POST['cpf']);
                 $cpf = str_replace(".", "", $cpf);
+                $cpf = str_replace("-", "", $cpf);
                 $name = addslashes($_POST['name']);
                 $turno = addslashes($_POST['turno']);
                 $group = addslashes($_POST['group']);
@@ -49,7 +51,8 @@ class usersController extends Controller {
     }
     public function edit($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());     
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $data['user_info'] = $this->user->getInfo($id);
@@ -71,7 +74,8 @@ class usersController extends Controller {
     public function delete($id) {
         $data = array();
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();     
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());     
         if ($this->user->hasPermission('usuario_view')) {
             $p = new Permissions();
             $this->user->delete($id);

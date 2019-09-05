@@ -13,9 +13,11 @@ class PermissionsController extends Controller {
     }
     public function index() {
         $data = array();
-        $data['nome_usuario'] = $this->user->getName();         
-        if ($this->user->hasPermission('permissao_view')) {            
-            $permissions = new Permissions();
+        $permissions = new Permissions();
+        // informações para o template
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());        
+        if ($this->user->hasPermission('permissao_view')) {                        
             $data['permissions_add'] = $this->user->hasPermission('permissao_add');
             $data['permissions_addgroup'] = $this->user->hasPermission('permissao_addgroup');
             $data['permission_list'] = $permissions->getList();
@@ -28,7 +30,8 @@ class PermissionsController extends Controller {
 
     public function add() {
         $data = array();
-        $data['nome_usuario'] = $this->user->getName();             
+        $data['nome_usuario'] = $this->user->getName();    
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('permissao_add')) {
             $permissions = new Permissions();
             if (isset($_POST['name']) && !empty($_POST['name'])) {
@@ -44,7 +47,8 @@ class PermissionsController extends Controller {
     }
     public function add_group() {
         $data = array();
-        $data['nome_usuario'] = $this->user->getName();         
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
         if ($this->user->hasPermission('permissao_addgroup')) {
             $permissions = new Permissions();
             if (isset($_POST['name']) && !empty($_POST['name'])) {
@@ -63,7 +67,8 @@ class PermissionsController extends Controller {
 
     public function delete($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();       
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());       
         if ($this->user->hasPermission('permissao_view')) {
             $permissions = new Permissions();
             $permissions->delete($id);
@@ -74,7 +79,8 @@ class PermissionsController extends Controller {
     }
     public function delete_group($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();       
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());       
         if ($this->user->hasPermission('permissao_view')) {
             $permissions = new Permissions();
             $permissions->deleteGroup($id);
@@ -85,7 +91,8 @@ class PermissionsController extends Controller {
     }
     public function edit_group($id) {
         // informações para o template
-        $data['nome_usuario'] = $this->user->getName();       
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());       
         if ($this->user->hasPermission('permissao_view')) {
             $permissions = new Permissions();
             if (isset($_POST['name']) && !empty($_POST['name'])) {

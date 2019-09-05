@@ -13,19 +13,24 @@ class Users extends Model{
 	}
 
 	public function doLogin($cpf){
-		$sql = "SELECT * FROM users WHERE cpf = :cpf";
-		$stmt = $this->db->prepare($sql);
-		$stmt->bindValue(":cpf", $cpf);
-		$stmt->execute();
+        try{
+            $sql = "SELECT * FROM users WHERE cpf = :cpf";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(":cpf", $cpf);
+            $stmt->execute();
 
-		if($stmt->rowCount() > 0){
-			$row = $stmt->fetch();
+            if($stmt->rowCount() > 0){
+                $row = $stmt->fetch();
 
-			$_SESSION['ccUser'] = $row['cpf'];
-			return true;
-		}
+                $_SESSION['ccUser'] = $row['cpf'];
+                return true;
+            }
 
-		return false;
+            return false;    
+        } catch(Exception $e){
+            echo "ERRO AO BUSCAR INFO NO BD ".$e->getMessage();
+        }
+		
 	}
 
 	public function setLoggedUser(){
@@ -63,6 +68,10 @@ class Users extends Model{
     
     public function getCpf() {
         return $this->userInfo['cpf'];
+    }
+
+    public function getGroupName($cpf){
+        return $this->permissions->grupoPorUsuario($cpf);
     }
 
     public function getInfo($id) {
@@ -106,7 +115,7 @@ class Users extends Model{
         $stmt->bindParam(":cpf", $cpf);
         $stmt->execute();
         $row = $stmt->fetch();
-        if ($row['c'] == '0') { //não há usuario cadastrado
+        if ($row['c'] == '0') { //não há usuario cadastrado            
             $stmt = $this->db->prepare("INSERT INTO users SET cpf = :cpf, name = :name, turno = :turno, id_group = :id_group");
             $stmt->bindParam(":cpf", $cpf);            
             $stmt->bindParam(":name", $name);
@@ -116,6 +125,8 @@ class Users extends Model{
             return true;
         } else {
             return false;
+            echo 'veio para aqui';
+            exit();
         }
     }
     public function edit($name , $turno, $group, $id) {

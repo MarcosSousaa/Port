@@ -27,5 +27,4 @@ class Controller{
         include './views/' . $viewName . '.php';
     }
 
-
 }

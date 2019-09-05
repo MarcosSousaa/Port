@@ -58,4 +58,56 @@ class Veiculos extends Model{
         $stmt->bindParam(":id", $id);
         $stmt->execute();
     }
+
+    public function buscaVeiculos($placa){
+        $resultado = null;
+        $sql = "SELECT id,motorista,empresa FROM veiculos WHERE placa = :placa AND status = 'A'";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":placa", $placa);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            $resultado = $stmt->fetch();
+        }
+        else {
+            $resultado = "";
+        }
+
+        return $resultado;
+    }
+
+    public function getVeiculoFiltrado($motorista,$placa,$empresa,$tipo,$status){
+        $sql = "SELECT tipo,motorista,placa,empresa,status FROM veiculos WHERE ";
+        $where = array();
+        $where[] = "veiculos.status = :status";
+        if(!empty($motorista)){
+            $where[] = "veiculos.motorista LIKE '%".$motorista."%'";
+        }
+        if(!empty($empresa)){
+            $where[] = "veiculos.empresa LIKE '%".$empresa."%'";
+        }
+        if(!empty($placa)){
+            $where[] = "veiculos.placa = :placa";
+        }
+
+        if($tipo != ''){
+            $where[] = "veiculos.tipo = :tipo";
+        }
+        $sql .= implode(' AND ', $where);
+        $stmt = $this->db->prepare($sql);
+        if(!empty($status)){
+            $stmt->bindParam(":status", $status);    
+        }
+        if(!empty($placa)){
+            $stmt->bindParam(":placa", $placa);    
+        }
+        if(!empty($tipo)){
+            $stmt->bindParam(":tipo", $tipo);            
+        }
+        
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll();
+        }
+        return null;
+    }
 }

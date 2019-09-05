@@ -6,12 +6,13 @@ body{
 }
 
 /******************************
-******** ESTILO GETAL *********
+******** ESTILO GERAL *********
 ******************************/
 input[type=text],
 input[type=email],
 input[type=password],
 input[type=number],
+input[type=date],
 select,
 textarea{
     width: 100%;
@@ -25,6 +26,7 @@ textarea{
 textarea{
     height: 100px;
     border: 1px solid #CCC;
+    text-align: left;
 }
 input[type=submit],
 button,
@@ -111,25 +113,25 @@ table td{
     display: block;
 }
 
-.menuarea li:nth-child(1){
+.menuHome{
     background-image: url(../images/icons/icon-home.png);
 }
-.menuarea li:nth-child(2){
+.menuPermission{
     background-image: url(../images/icons/icon-padlock.png);
 }
-.menuarea li:nth-child(3){
+.menuUsers{
     background-image: url(../images/icons/icon-users.png);
 }
-.menuarea li:nth-child(4){
+.menuRecords{
     background-image: url(../images/icons/icon-records.png);
 }
-.menuarea li:nth-child(5){
+.menuChaves{
+    background-image: url(../images/icons/icon-control-keys.png);
+}
+.menuVeiculos{
     background-image: url(../images/icons/icon-car.png);
 }
-.menuarea li:nth-child(6){
-    background-image: url(../images/icons/icon-key.png);
-}
-.menuarea li:nth-child(7){
+.menuReports{
     background-image: url(../images/icons/icon-reports.png);
 }
 
@@ -256,3 +258,78 @@ table td{
 .si:hover{
     background-color: #EEE;
 }
+
+/* PAGINAÇÃO DAS TABELAS */
+
+div.pager {
+    text-align: center;
+    margin: 1em 0;
+}
+
+div.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active {
+    background: #c00;
+}
+
+/* TELAS REPORTS */
+.report_item{
+    width: 150px;
+    height: 140px;
+    background: #CCC;
+    float: left;
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.report_item a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+
+.report-grid-4 {
+    width: 25%;
+    height: 80px;
+    float: left;
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* MODAL */
+.window{
+    display: none;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #FFF;
+    z-index: 9900;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#mascara{
+    display:none;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:9000;
+    background-color:#000;
+}
+ 
+.close{display:block; text-align:right; color: red; text-decoration: none; font-size: 20px; font-weight: bold;}

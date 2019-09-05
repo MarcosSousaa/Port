@@ -58,4 +58,49 @@ class Chaves extends Model{
 		$stmt->execute();
 		
 	}
+
+	public function getChaves(){
+		$data = "";
+		$sql = "SELECT id,cod,local FROM chaves";
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute();
+		if($stmt->rowCount() > 0){
+			$result = $stmt->fetchAll();
+			$data = "<option value='0' disabled selected >Selecione uma chave </option>";
+
+			foreach($result as $row){
+				$data .= "<option value='".$row['id']."'>".$row['cod']." - ".$row['local']."</option>";
+			}			
+		}
+		return $data;
+	}
+
+	public function getChaveFiltrada($chave_name,$local_name){
+		$sql = "SELECT cod,local FROM chaves ";
+		$where = array();
+
+		if(!empty($chave_name)){
+			$where[] = "WHERE chaves.cod LIKE '%".$chave_name."%'";
+		}
+
+		if(!empty($chave_local)){
+			if(!empty($chave_name)){
+				$where[] = "chaves.local LIKE '%".$local_name."%'";
+			}else{
+				$where[] = "WHERE chaves.local LIKE '%".$local_name."%'";	
+			}
+			
+		}
+		$sql .= implode(' AND ', $where);
+		$stmt = $this->db->prepare($sql);
+		$stmt->execute();
+        if($stmt->rowCount() > 0){
+        	return $stmt->fetchAll();
+        }
+        return null;
+
+
+	}
 }
+
+?>

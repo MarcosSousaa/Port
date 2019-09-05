@@ -2,7 +2,9 @@
 
 <div class="tabarea">
     <div class="tabitem activetab">Grupos de permissões</div>
+    <?php if($permissions_add) : ?>
     <div class="tabitem">Permissões</div>
+    <?php endif ?>
 </div>
 
 <div class="tabcontent">
@@ -26,25 +28,30 @@
             <?php endforeach; ?>
         </table>
     </div>
-
-
+    <?php if($permissions_add) { ?>
     <div class="tabbody">
-        <?php if($permissions_add) : ?>
+        <?php if($permissions_del) : ?>
         <a class="button" href="<?= BASE_URL ?>/permissions/add">Adicionar Permissão</a>
         <?php endif; ?>
         <table width="100%">
             <tr>
                 <th>Nome da Permissão</th>
+                <?php if($permissions_del) : ?>
                 <th width="50">Ações</th>
+                <?php endif; ?>
             </tr>
             <?php foreach ($permission_list as $p): ?>
                 <tr>
                     <td><?= $p['name'] ?></td>
-                    <td><a class="button button_small" href="<?= BASE_URL ?>/permissions/delete/<?= $p['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a></td>
+                    <?php if($permissions_del) : ?>
+                    <td>
+                        <a class="button button_small" href="<?= BASE_URL ?>/permissions/delete/<?= $p['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir ?')">Excluir</a>
+                    </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         </table>
     </div>
 </div>
-
+<?php }?>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_permissions.js"></script>

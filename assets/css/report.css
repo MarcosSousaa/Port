@@ -1,0 +1,50 @@
+body {    
+    background: url('../images/logo_transp.png') no-repeat;        
+    background-position: center;      
+}
+
+
+#report-header{
+    position: fixed;
+    height: 150px;
+    width: 100%;
+    text-align: center;
+    margin-top: 150px; 
+}
+
+.table_report table{
+    width: 100%;
+    margin: 0 auto;
+    
+}
+
+.table_report table, 
+.table_report th, 
+.table_report td {    
+    border-collapse: collapse;
+}
+
+.table_report thead{
+    background-color: #f73725;
+    font-weight: bold;
+}
+
+.table_report thead th{
+    padding: 5px 0px;
+    text-transform: uppercase;    
+    text-align: center;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC; 
+
+}
+
+.table_report tbody{        
+    text-align: center;    
+}
+
+.table_report tbody td{
+    padding: 10px 0px;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    text-align: center;
+}    

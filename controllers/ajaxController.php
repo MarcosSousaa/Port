@@ -1,5 +1,5 @@
 <?php 
-class ajaxController extends Controller {
+class AjaxController extends Controller {
     private $user;
     public function __construct() {
         parent::__construct();
@@ -81,24 +81,26 @@ class ajaxController extends Controller {
         echo json_encode($data);
     }
 
-    public function buscaPorData(){
+    public function buscaChaves(){
         $data = array();
-        $r = new Records();        
+        $chaves = new Chaves();
+        $data = $chaves->getChaves();              
+        echo $data;
+    }
 
-        if(isset($_POST['data1']) && !empty($_POST['data1'])){            
-            $data1 = addslashes($_POST['data1']);
-            $data2 = addslashes($_POST['data2']);
-            $tipo = addslashes($_POST['tipo']);
-            echo "DATA-1 : ". $data1. "<br/> DATA-2 : ". $data2. " <br> TIPO : ".$tipo;
-            exit;
-            //$data['records_list'] = $r->getList($data1, $data2, $tipo);
-        }
-        else{
-            $data1 = date('d-m-Y');
-            $data2 = date('d-m-Y');
-        }
+    public function buscaVeiculos(){
+        $filtro = addslashes($_POST['filtro']);
+        $veiculos = new Veiculos();
+        $data = $veiculos->buscaVeiculos($filtro);
+        echo json_encode($data);
+    }
 
-        echo json_encode($data1);
-      
+    public function cadVeiculos(){
+        $tipo = addslashes($_POST['tipo']);
+        $motorista = addslashes($_POST['motorista']);
+        $placa = addslashes($_POST['placa']);
+        $empresa = addslashes($_POST['empresa']);    
+        $veiculos = new Veiculos();
+        $veiculos->add($tipo,$motorista,$placa,$empresa);        
     }
 }
