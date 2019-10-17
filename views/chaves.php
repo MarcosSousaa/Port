@@ -4,15 +4,13 @@
 
 <table width="100%">
     <tr>        
-        <th>Codígo da Chave</th>
-        <th>Descrição da Chave</th>
+        <th>Codígo da Chave</th>        
         <th>Local Chave</th>        
         <th>Status da Chave</th>
         <th width="180">Ações</th>
     </tr>
     <?php foreach ($chaves_list as $c): ?>
-        <tr>
-            <td><?= $c['id'] ?></td>
+        <tr>            
             <td><?= $c['cod'] ?></td>
             <td><?= $c['local'] ?></td>
             <td><?= ($c['status'] == 'A'? 'Ativo' : 'Inativo'); ?></td>            

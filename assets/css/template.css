@@ -29,6 +29,7 @@ textarea{
     text-align: left;
 }
 input[type=submit],
+input[type=button],
 button,
 .button{
     border: 0;
@@ -265,6 +266,33 @@ div.pager {
     text-align: center;
     margin: 1em 0;
 }
+
+
+.searchresults{
+    width: 320px;
+    background-color: #2980b9;
+    color: #FFF;
+    position: absolute;
+    border: 1px solid #DDD;
+
+}
+
+.si{
+    height: 20px;
+    line-height: 20px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.si a {
+    color: #FFF;
+    text-decoration: none;
+    display: block;
+}
+.si:hover {
+    background-color: #c0392b;
+}
+
+
 
 div.pager span {
     display: inline-block;

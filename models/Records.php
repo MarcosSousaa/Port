@@ -9,11 +9,11 @@ class Records extends Model{
 			$sql = "SELECT registros.id,registros.tipo,registros.data_er,registros.hora_er,registros.colab_ret, registros.flag, chaves.cod,chaves.local FROM registros INNER JOIN chaves ON registros.chaves_id = chaves.id WHERE registros.tipo = :tipo AND registros.data_er BETWEEN :data1 AND :data2 /*AND registros.flag = '1'*/ ORDER BY registros.data_er,registros.hora_er";	
 		}
 		else if($tipo == '1'){			
-			$sql = "SELECT registros.id,registros.tipo,registros.data_er,registros.hora_er,registros.tipo_v,registros.placa_v,registros.motorista_v, registros.flag, registros.empresa_v, registros.obs FROM registros WHERE registros.tipo = :tipo AND registros.data_er BETWEEN :data1 AND :data2 /*AND registros.flag = '1'*/ ORDER BY registros.data_er,registros.hora_er";
+			$sql = "SELECT registros.id,registros.tipo,registros.data_er,registros.hora_er,registros.tipo_v,registros.placa_v,registros.motorista_v, registros.flag,registros.rg, registros.empresa_v, registros.obs FROM registros WHERE registros.tipo = :tipo AND registros.data_er BETWEEN :data1 AND :data2 /*AND registros.flag = '1'*/ ORDER BY registros.data_er,registros.hora_er";
 	
 		}
 		else if($tipo == '2'){			
-			$sql = "SELECT registros.id,registros.tipo,registros.visitante,registros.data_er,registros.hora_er, registros.flag, veiculos.placa, registros.placa_v, veiculos.motorista, registros.motorista_v, veiculos.empresa, registros.empresa_v, registros.obs FROM registros LEFT OUTER JOIN veiculos ON registros.veiculos_id = veiculos.id WHERE registros.tipo = :tipo AND registros.data_er BETWEEN :data1 AND :data2 /*AND registros.flag = '1'*/ORDER BY registros.data_er,registros.hora_er";
+			$sql = "SELECT registros.id,registros.tipo,registros.visitante,registros.data_er,registros.hora_er, registros.flag, veiculos.placa, registros.placa_v,registros.rg, veiculos.motorista, registros.motorista_v, veiculos.empresa, registros.empresa_v, registros.obs FROM registros LEFT OUTER JOIN veiculos ON registros.veiculos_id = veiculos.id WHERE registros.tipo = :tipo AND registros.data_er BETWEEN :data1 AND :data2 /*AND registros.flag = '1'*/ORDER BY registros.data_er,registros.hora_er";
 		}	
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(':tipo',$tipo);
@@ -48,7 +48,7 @@ class Records extends Model{
         return $row['c'];
 	}
 
-	public function add($tipo,$data_er,$hora_er,$colab_ret = '', $tipo_vr = '', $placa_vr = '', $motorista_vr = '', $empresa_vr = '' , $veiculos_id = '',$chaves_id = '',$obs = '',$visitante = ''){
+	public function add($tipo,$data_er,$hora_er,$colab_ret = '', $tipo_vr = '', $placa_vr = '', $motorista_vr = '', $rg = '', $empresa_vr = '' , $veiculos_id = '',$chaves_id = '',$obs = '',$visitante = ''){
 		if($tipo == '0'){
 			$sql = "INSERT INTO registros (tipo,data_er,hora_er,colab_ret,chaves_id) VALUES(:tipo,:data_er,:hora_er,:colab_ret,:chaves_id)";
 			$stmt = $this->db->prepare($sql);
@@ -59,29 +59,31 @@ class Records extends Model{
 			$stmt->bindValue(":chaves_id", $chaves_id);			
 		}
 		else if($tipo == '1'){
-			$sql = "INSERT INTO registros (tipo,data_er,hora_er,tipo_v,placa_v,motorista_v,empresa_v,obs) VALUES(:tipo,:data_er,:hora_er,:tipo_v,:placa,:motorista,:empresa,:obs)";
+			$sql = "INSERT INTO registros (tipo,data_er,hora_er,tipo_v,placa_v,motorista_v,rg,empresa_v,obs) VALUES(:tipo,:data_er,:hora_er,:tipo_v,:placa,:motorista,:rg,:empresa,:obs)";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindValue(":tipo", $tipo);
 			$stmt->bindValue(":data_er", $data_er);
 			$stmt->bindValue(":hora_er", $hora_er);
 			$stmt->bindValue(":tipo_v", $tipo_vr);
 			$stmt->bindValue(":placa", $placa_vr);			
-			$stmt->bindValue(":motorista", $motorista_vr);			
+			$stmt->bindValue(":motorista", $motorista_vr);
+			$stmt->bindValue(":rg", $rg);			
 			$stmt->bindValue(":empresa", $empresa_vr);
 			$stmt->bindValue(":obs", $obs);
 		}
 
 		else if($tipo == '2'){
 			if($visitante == '1'){
-				$sql = "INSERT INTO registros(tipo,data_er,hora_er,placa_v,motorista_v,empresa_v,obs,visitante)
+				$sql = "INSERT INTO registros(tipo,data_er,hora_er,placa_v,motorista_v,rg,empresa_v,obs,visitante)
 				VALUES
-				(:tipo,:data_er,:hora_er,:placa,:motorista,:empresa,:obs,:visitante)";
-				$stmt = $this->db->prepare($sql);
+				(:tipo,:data_er,:hora_er,:placa,:motorista,:rg,:empresa,:obs,:visitante)";
+				$stmt = $this->db->prepare($sql);				
 				$stmt->bindValue(":tipo", $tipo);
 				$stmt->bindValue(":data_er", $data_er);
 				$stmt->bindValue(":hora_er", $hora_er);
 				$stmt->bindValue(":placa", $placa_vr);			
-				$stmt->bindValue(":motorista", $motorista_vr);			
+				$stmt->bindValue(":motorista", $motorista_vr);	
+				$stmt->bindValue(":rg", $rg);			
 				$stmt->bindValue(":empresa", $empresa_vr);
 				$stmt->bindValue(":obs", $obs);
 				$stmt->bindValue(":visitante", $visitante);
@@ -96,7 +98,7 @@ class Records extends Model{
 				$stmt->bindValue(":obs", $obs);
 				$stmt->bindValue(":visitante", $visitante);
 			}			
-		}
+		}		
 		$stmt->execute();
 
 	}
@@ -145,6 +147,7 @@ class Records extends Model{
 					veiculos.placa, 
 					veiculos.empresa,
 					registros.motorista_v, 
+					registros.rg, 
 					registros.placa_v, 
 					registros.empresa_v, 
 					registros.data_sr,
@@ -193,7 +196,8 @@ class Records extends Model{
 					registros.data_er, 
 					registros.hora_er, 
 					registros.motorista_v, 
-					registros.placa_v, 
+					registros.placa_v,
+					registros.rg, 
 					registros.empresa_v, 
 					registros.data_sr,
 					registros.obs,					

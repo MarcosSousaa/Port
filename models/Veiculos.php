@@ -14,12 +14,11 @@ class Veiculos extends Model{
         $array = array();
         $sql = "SELECT * FROM veiculos WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam("id", $id);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
         if($stmt->rowCount() > 0){
             $array =  $stmt->fetch();
         }
-
         return $array;
 
     }
@@ -42,12 +41,13 @@ class Veiculos extends Model{
         $stmt->execute();
     }
 
-    public function edit($motorista, $empresa, $status, $id){
-         $sql = "UPDATE veiculos SET motorista = :motorista,  empresa = :empresa, status = :status WHERE id = :id";
+    public function edit($motorista, $empresa, $status,$placa, $id){
+         $sql = "UPDATE veiculos SET motorista = :motorista,  empresa = :empresa, status = :status, placa = :placa WHERE id = :id";
         $stmt = $this->db->prepare($sql);        
         $stmt->bindParam(":motorista", $motorista);        
         $stmt->bindParam(":empresa", $empresa);
         $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":placa", $placa);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
     }
@@ -61,15 +61,14 @@ class Veiculos extends Model{
 
     public function buscaVeiculos($placa){
         $resultado = null;
-        $sql = "SELECT id,motorista,empresa FROM veiculos WHERE placa = :placa AND status = 'A'";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":placa", $placa);
-        $stmt->execute();
+        $sql = "SELECT id,placa,motorista,empresa FROM veiculos WHERE placa LIKE '".$placa."%' AND status = 'A'";
+        $stmt = $this->db->prepare($sql);        
+        $stmt->execute();    
         if($stmt->rowCount() > 0){
-            $resultado = $stmt->fetch();
+            $resultado = $stmt->fetchAll();
         }
         else {
-            $resultado = "";
+            $resultado = null;
         }
 
         return $resultado;

@@ -100,4 +100,19 @@ class ChavesController extends Controller {
             header("Location: " . BASE_URL);
         }
     }
+
+    public function view($id) {
+        // informações para o template
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
+             
+        if ($this->user->hasPermission('chaves_edit')) { 
+            $c = new Chaves();            
+            $data['chaves_info'] = $c->getInfo($id);
+            $this->loadTemplate('chaves_view', $data);
+        } 
+        else {            
+            header("Location: " . BASE_URL);
+        }
+    }
 }

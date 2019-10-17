@@ -26,6 +26,7 @@
             <th>Entrada</th>                                          
             <th>Placa </th> 
             <th>Motorista</th>
+            <th>RG</th>
             <th>Empresa</th>                               
             <th>Intervalo</th>
             <th>Saída</th>
@@ -40,6 +41,7 @@
                 <td><?= date('d/m/Y',strtotime($records_item['data_er'])). ' - '. substr($records_item['hora_er'], 0, -3)?></td>                
                 <td><?= !empty($records_item['placa']) ? $records_item['placa'] : $records_item['placa_v']; ?></td>
                 <td><?= !empty($records_item['motorista']) ? $records_item['motorista'] : $records_item['motorista_v']; ?></td>
+                <td><?= !empty($records_item['rg']) ? $records_item['rg'] : "Funcionario";?></td>
                 <td><?= !empty($records_item['empresa']) ? $records_item['empresa'] : $records_item['empresa_v'] ?></td>
                 <td>
                     <?= !empty($records_item['hr_int_en']) ? $records_item['hr_int_sai']. " Até ". $records_item['hr_int_en'] : " Sem Intervalo" ?>

@@ -25,7 +25,8 @@ case 'COMPRAS' :
                 <tr>        
                     <th>Data-Entrada</th>                    
                     <th>Placa</th>    
-                    <th>Nome Motorista</th> 
+                    <th>Nome Motorista</th>
+                    <th>RG</th>                    
                     <th>Empresa</th>
                     <th>Observações</th>                
                     <th width="180">Ações</th>
@@ -37,6 +38,7 @@ case 'COMPRAS' :
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= date('d/m/Y', strtotime($r['data_er'])). ' - '. $r['hora_er'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['placa_v'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['motorista_v'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['rg'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['empresa_v'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['obs'];?></td> 
                         <?php if($r['flag'] == '1'){ 
@@ -109,7 +111,7 @@ case 'COMPRAS' :
                 <?php foreach($records_list as $r): ?>                                   
                     <tr>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>">
-                            <?= date('d/m/Y', strtotime($r['data_er'])). " - " .date('h:m', strtotime($r['hora_er']));?>
+                            <?= date('d/m/Y', strtotime($r['data_er'])). " - " .$r['hora_er'];?>
                                 
                         </td>
                        
@@ -146,7 +148,8 @@ case 'COMPRAS' :
                 <tr>        
                     <th>Data-Entrada</th>                    
                     <th>Placa</th>    
-                    <th>Nome Motorista</th> 
+                    <th>Nome Motorista</th>
+                    <th>RG</th>                    
                     <th>Empresa</th>
                     <th>Observações</th>                
                     <th width="180">Ações</th>
@@ -158,6 +161,7 @@ case 'COMPRAS' :
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= date('d/m/Y', strtotime($r['data_er'])). ' - '. $r['hora_er'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['placa_v'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['motorista_v'];?></td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['rg'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['empresa_v'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['obs'];?></td> 
                         <?php if($r['flag'] == '1'){ 
@@ -188,9 +192,11 @@ case 'COMPRAS' :
         <table width="100%" class="paginated">
             <thead>
                 <tr>        
-                    <th>Data-Entrada</th>                    
+                    <th>Data-Entrada</th>
+                    <th>Visitante</th>                    
                     <th>Placa</th>    
-                    <th>Nome Motorista</th> 
+                    <th>Nome Motorista</th>
+                    <th>RG</th> 
                     <th>Empresa</th>                
                     <th>Observações</th>
                     <th width="180">Ações</th>
@@ -202,10 +208,16 @@ case 'COMPRAS' :
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= date('d/m/Y', strtotime($r['data_er'])). " - ".$r['hora_er'];?>
                             
                         </td>
+                        <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['visitante'] == '1' ? 'Visitante' : 'Não Visitante';?>
+                            
+                        </td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= !empty($r['placa']) ? $r['placa'] : $r['placa_v'];?>
                             
                         </td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= !empty($r['motorista']) ? $r['motorista'] : $r['motorista_v'];?>
+                            
+                        </td>
+                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= !empty($r['rg']) ? $r['rg'] : 'Funcionario';?>
                             
                         </td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= !empty($r['empresa']) ? $r['empresa'] : $r['empresa_v'];?></td>

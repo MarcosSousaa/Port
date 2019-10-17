@@ -17,8 +17,8 @@
             <td><?= $v['placa'] ?></td>
             <td><?= ($v['status'] == 'A'? 'Ativo' : 'Inativo'); ?></td>      
             <td>
-                <a class="button button_small" href="<?= BASE_URL ?>/veiculos/edit/<?= $v['id'] ?>">Editar</a>
-                <a class="button button_small" href="<?= BASE_URL ?>/veiculos/inat/<?= $v['id'] ?>" onclick="return confirm('Tem certeza que deseja inativar esse veículo ?')">Inativar</a>
+                <a class="button button_small" href="<?= BASE_URL ?>/veiculos/view/<?= $v['id'] ?>">Visualizar</a>
+                <a class="button button_small" href="<?= BASE_URL ?>/veiculos/edit/<?= $v['id'] ?>">Editar</a>                
             </td>
         </tr>
     <?php endforeach; ?>
@@ -30,5 +30,3 @@
     <?php endfor; ?>
     <div style="clear: both"></div>
 </div>
-
-<!--<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_veiculos.js"></script> -->

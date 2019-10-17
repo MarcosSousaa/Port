@@ -13,8 +13,7 @@
     <input type="text" name="motorista" required="" value="<?php echo $veiculos_info['motorista'];?>"><br><br>
 
     <strong>Placa</strong><br />
-    <?php echo $veiculos_info['placa']; ?><br /><br />
-
+    <input type="text" name="placa" value="<?php echo $veiculos_info['placa']; ?>">    
     <label for="empresa">Empresa</label>
     <input type="text" name="empresa" value="<?php echo $veiculos_info['empresa'];?>"><br><br>
     

@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('America/Sao_Paulo'); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +11,7 @@
         </script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script.js"></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.mask.js"></script>
+        <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.validate.min.js"></script>
     </head>
     <body>
 
@@ -28,7 +30,7 @@
                                         <a href="'.BASE_URL.'">Home</a>
                                     </li>
                                     <li class="menuRecords">
-                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                        <a href="'.BASE_URL.'/records">Registros</a>
                                     </li>
                                     <li class="menuVeiculos">
                                         <a href="'.BASE_URL.'/veiculos">Veículos</a>
@@ -61,7 +63,7 @@
                                         <a href="'.BASE_URL.'/users">Usuários</a>
                                     </li>
                                     <li class="menuRecords">
-                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                        <a href="'.BASE_URL.'/records">Registros</a>
                                     </li>
                                     <li class="menuVeiculos">
                                         <a href="'.BASE_URL.'/veiculos">Veículos</a>
@@ -86,7 +88,7 @@
                                         <a href="'.BASE_URL.'/users">Usuários</a>
                                     </li>
                                     <li class="menuRecords">
-                                        <a href="'.BASE_URL.'/records">Entrada-Saída</a>
+                                        <a href="'.BASE_URL.'/records">Registros</a>
                                     </li>
                                     <li class="menuVeiculos">
                                         <a href="'.BASE_URL.'/veiculos">Veículos</a>

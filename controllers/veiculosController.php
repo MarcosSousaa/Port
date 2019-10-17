@@ -69,15 +69,31 @@ class VeiculosController extends Controller {
         if ($this->user->hasPermission('veiculos_edit')) { 
         	$v = new Veiculos();
         	if(isset($_POST['motorista']) && !empty($_POST['motorista'])){        		
-        		 $motorista = strtoupper(addslashes($_POST['motorista']));        	 
-        		  $empresa = strtoupper(addslashes($_POST['empresa']));
-                  $status = strtoupper(addslashes($_POST['status']));
-        		 $v->edit($motorista, $empresa, $status, $id);
+    		  $motorista = strtoupper(addslashes($_POST['motorista']));	 
+    		  $empresa = strtoupper(addslashes($_POST['empresa']));
+              $placa = strtoupper(addslashes($_POST['placa']));
+              $status = strtoupper(addslashes($_POST['status']));
+		      $v->edit($motorista, $empresa, $status,$placa, $id);
         		 header("Location:". BASE_URL.'/veiculos');
         	}
         	
         	$data['veiculos_info'] = $v->getInfo($id);            
             $this->loadTemplate('veiculos_edit', $data);
+        } 
+        else {            
+            header("Location: " . BASE_URL);
+        }
+    }
+
+     public function view($id) {
+        // informações para o template
+        $data['nome_usuario'] = $this->user->getName();
+        $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
+        if ($this->user->hasPermission('veiculos_edit')) { 
+            $v = new Veiculos();
+            
+            $data['veiculos_info'] = $v->getInfo($id);            
+            $this->loadTemplate('veiculos_view', $data);
         } 
         else {            
             header("Location: " . BASE_URL);

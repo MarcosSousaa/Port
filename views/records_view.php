@@ -26,6 +26,8 @@
     <input type="text" name="colab_dev" value="<?php echo $records_info['tipo_v'];?>" disabled><br><br>
     <label>Placa</label>
     <input type="text" name="colab_dev" value="<?php echo $records_info['placa_v'];?>" disabled><br><br>
+     <label>RG Motorista</label>
+    <input type="text" name="colab_dev" value="<?php echo $records_info['rg'];?>" disabled><br><br>
     <label>Motorista</label>
     <input type="text" name="colab_dev" value="<?php echo $records_info['motorista_v'];?>" disabled><br><br>
      <label>Empresa</label>
@@ -59,9 +61,7 @@
     <label for="">Data-Saída</label><br>        
     <input type="text" value="<?= !empty($records_info['data_sr']) ? date('d/m/Y', strtotime($records_info['data_sr'])). ' - '.$records_info['hora_sr'] : 'Sem Saída'?>" disabled><br><br>
     <label>Observação</label>        
-    <textarea disabled> 
-        <?= $records_info['obs'] ?>
-    </textarea>
+    <textarea disabled><?= $records_info['obs'] ?></textarea>
     <a class="button button_small" href="<?= BASE_URL?>/records">VOLTAR</a>
 <?php endif; ?>
 

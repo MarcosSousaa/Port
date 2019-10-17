@@ -27,7 +27,7 @@ class RecordsController extends Controller {
                 if($data['acesso']['name'] == "COMPRAS"){
                     $tipo = '1';    
                 }else{
-                    $tipo = '0';    
+                    $tipo = '2';    
                 }
                 
                 $data1 = date('Y-m-d');
@@ -65,7 +65,7 @@ class RecordsController extends Controller {
         // informações para o template
         $data['nome_usuario'] = $this->user->getName();
         $data['acesso'] = $this->user->getGroupName($this->user->getCpf());
-        if ($this->user->hasPermission('records_add')) { 
+        if ($this->user->hasPermission('records_add')) {        	
             $r = new Records();
             if(isset($_POST['data_er']) && !empty($_POST['data_er'])){
                 $tipo = addslashes($_POST['tipo']);                
@@ -73,37 +73,47 @@ class RecordsController extends Controller {
                 $hora_er = addslashes($_POST['hora_er']);
                 $data_er = str_replace("/", "-", $data_er);
                 $data_er = date('Y-m-d', strtotime($data_er));
-                $obs = addslashes($_POST['obs_reg']);
+                $obs = addslashes($_POST['obs_reg']);                     
                 if($tipo == '0'){
                     $colab_ret = addslashes($_POST['colab_ret']);
-                    $chaves_id = addslashes($_POST['chaves_id']);                    
-                    $r->add($tipo,$data_er,$hora_er,$colab_ret,null,null,null,null,null,$chaves_id,null);                    
+                    $chaves_id = addslashes($_POST['chaves_id']);
+                    $r->add($tipo,$data_er,$hora_er,$colab_ret,null,null,null,null,null,null,$chaves_id,null,null);                    
                 }
                 else if($tipo == '1'){
                     $tipo_vr = addslashes($_POST['tipo_vr']);
                     $placa_vr = addslashes($_POST['placa_vr']);
+                    $placa_vr = strtoupper($placa_vr);
                     $motorista_vr = addslashes($_POST['motorista_vr']);
+                    $motorista_vr = strtoupper($motorista_vr);
+                    $rg = addslashes($_POST['rg']);
                     $empresa_vr = addslashes($_POST['empresa_vr']);
-                    $r->add($tipo,$data_er,$hora_er,null,$tipo_vr,$placa_vr,$motorista_vr,$empresa_vr,null,null,$obs,null);
+                    $empresa_vr = strtoupper($empresa_vr);
+                    $r->add($tipo,$data_er,$hora_er,null,$tipo_vr,$placa_vr,$motorista_vr,$rg,$empresa_vr,null,null,$obs,null);
                 }
 
                 else if($tipo == '2'){
                     $veiculos_id = addslashes($_POST['veiculos_id']); 
-                    $visitante = addslashes($_POST['visitante']);
+                    $visitante = addslashes($_POST['visitante']);                    
                     if(isset($_POST['placa_vr'])&& !empty($_POST['placa_vr'])){
                         $placa_vr = addslashes($_POST['placa_vr']);
+                        $placa_vr = strtoupper($placa_vr);
                     }
                     if(isset($_POST['motorista_vr'])&& !empty($_POST['motorista_vr'])){
                         $motorista_vr = addslashes($_POST['motorista_vr']);
+                        $motorista_vr = strtoupper($motorista_vr);
                     }
                     if(isset($_POST['empresa_vr'])&& !empty($_POST['empresa_vr'])){
                         $empresa_vr = addslashes($_POST['empresa_vr']);
+                        $empresa_vr = strtoupper($empresa_vr);
                     }
-                    if(!empty($placa_vr) && !empty($motorista_vr) && !empty($empresa_vr)){
-                        $r->add($tipo,$data_er,$hora_er,null,null,$placa_vr,$motorista_vr,$empresa_vr,null,null,$obs,$visitante);   
+                    if(isset($_POST['rg-entrada']) && !empty($_POST['rg-entrada'])){
+                        $rg = addslashes($_POST['rg-entrada']);
                     }
-                    else{                        
-                        $r->add($tipo,$data_er,$hora_er,null,null,null,null,null,$veiculos_id,null,$obs,$visitante);       
+                    if(!empty($placa_vr) && !empty($motorista_vr) && !empty($empresa_vr) && !empty($rg)){                    	
+                        $r->add($tipo,$data_er,$hora_er,null,null,$placa_vr,$motorista_vr,$rg,$empresa_vr,null,null,$obs,$visitante);   
+                    }
+                    else{
+                        $r->add($tipo,$data_er,$hora_er,null,null,null,null,null,null,$veiculos_id,null,$obs,$visitante);       
                     }
                     
                 }
